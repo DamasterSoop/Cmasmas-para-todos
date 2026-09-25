@@ -1,0 +1,388 @@
+//Este es mi forma de retomar c++ desde ya haberlo aprendido hasta dominarlo.
+//Dia 5
+//En esta Clase veremos sobre estructuras de control iterativas.
+
+//___________________ESTRUCTURAS DE CONTROL ITERATIVAS__________________________
+
+/*
+En clases pasadas hemos visto las estructuras de control.
+
+Recordemos que las estructuras de control son herramientas dentro del
+programa que nos permiten modificar el flujo de ejecución.
+
+Estas pueden:
+
+- Tomar decisiones (estructuras selectivas).
+- Repetir bloques de código (estructuras iterativas).
+
+Las estructuras iterativas permiten ejecutar un bloque de código
+varias veces, ya sea:
+
+1) Un número determinado de veces.
+2) Mientras una condición se mantenga verdadera.
+
+Su propósito principal es automatizar tareas repetitivas
+dentro del programa.
+
+NOTA: Las estructuras iterativas evitan la repetición manual de instrucciones, 
+        haciendo que el código sea más eficiente, compacto y dinámico.
+*/
+
+//En esta sesion veremos las estructuras FOR, WHILE y DO-WHILE
+
+//INICIAMOS CODIGO 
+
+#include <iostream>
+using namespace std;
+
+
+int main(){
+    
+    //__________________ESTRUCTURA ITERATIVA WHILE____________________________
+    /*El ciclo while en C++ es una estructura de control que repite un bloque de 
+    código continuamente mientras una condición especificada sea verdadera (true).
+    Se evalúa al inicio de cada iteración, por lo que el código puede no ejecutarse
+    nunca si la condición es falsa desde el principio.
+    
+    YA SE....
+    SUENA MUY TECNICO NO?
+    PONGAMOSLO ASI :3 
+    
+    imagina que se te pide escribir infinitamente en una libreta blanca que en 
+    algun punto tiene una hoja roja.
+    
+    bueno yo te digo 
+    
+    escribe repetidamente (tu bloque de codigo) mientras (while) la hoja que estas 
+    viendo sea de color blanco (tu condicion verdadera)
+    
+    -> significa que estaras escribiendo sin parar, pasando hoja tras hoja.
+    -> cuando veas una hoja roja te detienes, es decir: tu condicion ahora es falsa
+    -> Por lo tanto vas a dejar de escribir y seguiras con tu vida
+    
+    El ciclo termina cuando la condición deja de cumplirse.
+    -----------------------------------------------
+
+    FUNCIONAMIENTO INTERNO (conceptual):
+
+    1) Evaluar condición
+    2) Si es true → ejecutar bloque
+    3) Volver a evaluar condición
+    4) Si es false → salir del ciclo
+
+    Internamente esto se traduce en saltos condicionales
+    que regresan al inicio del bloque hasta que la condición falle.*/
+    //_____________Hagamos en codigo el ejemplo de la explicacion______________
+    
+    int hojaRoja=75; //// Simulamos que existe una hoja roja en la posición 75
+    int hojaActual=0; //iniciamos escribiendo en la hoja 0
+    
+    while (hojaActual!=hojaRoja){ //repetirmos la accion mientras la hoja actual no sea la hoja roja 
+    
+        cout<<"Termine la hoja: "<<hojaActual<<endl;
+        hojaActual++; //pasamos a la siguiente hoja
+        
+        //IMPORTANTE//
+        /*Si olvidamos incrementar hojaActual dentro del ciclo, la condición nunca 
+        cambiaría y el programa entraría en un bucle infinito.*/
+        
+    }
+    cout<<"La hoja roja es la numero: "<<hojaRoja;
+    
+    //NOTA: EN WHILE PRIMERO PREGUNTAMOS Y LUEGO EJECUTAMOS
+    
+    //__________________ESTRUCTURA ITERATIVA DO-WHILE__________________________
+    /*
+    La estructura iterativa do-while es una variación del ciclo while.
+    
+    La diferencia principal radica en el orden de ejecución:
+    
+    1) Primero se ejecuta el bloque de código.
+    2) Después se evalúa la condición.
+    
+    Esto garantiza que el bloque se ejecute al menos una vez,
+    independientemente de si la condición es verdadera o falsa.
+    
+    Sintaxis:
+    
+    do {
+        // bloque de código
+    } while (condicion);
+    
+    Nota: El do-while lleva punto y coma al final.
+    */
+    //Ejemplo de uso
+    /*
+    imagina que tienes una baraja de cartas donde solo puedes ver la parte de atras 
+    te digo...
+    
+    "voltea las cartas hasta que te salga el joker"
+    
+    A diferencia de while, nos es imposible saber al inicio si la carta es un "joker"
+    por lo que debemos girar almenos una carta para luego evaluar si se trata de una 
+    carta "joker"
+    */
+    //_____________Hagamos en codigo el ejemplo de la explicacion______________
+    
+    int cartaJoker=54; //simulamos que el joker esta en la carta 32 
+    int cartaActual=1;
+    //asumiendo que una baraja tiene cualquier numero de cartas igual o mayor a la posicion joker  
+    
+    do{ //HACER
+        
+        //BLOQUE DE CODIGO
+       cout<<"\nVolteamos la carta: "<<cartaActual<<endl; 
+       
+       if (cartaActual!=cartaJoker){
+           cout<<"No es el joker"<<endl;
+       }
+       
+       cartaActual++;
+       
+    }while(cartaActual!=cartaJoker + 1); //EVALUAMOS CONDICION
+    
+    cout<<"Es el joker"<<endl;
+    
+    //REPRESENTACION CLAVE:
+    /*
+    LOGICA DEL WHILE 
+    
+        comparar
+        si falso → salir
+        ejecutar
+        volver
+    
+    LOGICA DE DO-WHILE
+        ejecutar
+        comparar
+        si verdadero → volver
+        
+    Es solo cambio de orden del salto condicional.
+    Pero ese cambio hace diferencia conceptual enorme.*/
+    
+    //__________________ESTRUCTURA ITERATIVA FOR__________________________
+    /*La estructura FOR es una estructura iterativa determinista.
+    
+    Es un mecanismo diseñado para repetir un bloque de código bajo un esquema de 
+    control completo y explícito.
+    
+    Osea se... Nos Ayuda a Controlar repeticiones cuando existe una variable de
+    control cuyo ciclo de vida está ligado únicamente a la iteración.
+    
+    En otras palabras:
+
+        Crear un contador
+
+        Controlar su límite
+
+        Modificarlo automáticamente
+
+        Todo dentro de una estructura compacta
+
+        Es una estructura pensada para iteraciones contadas.
+    
+    ============SINTAXIS:==========
+    
+    for (inicializacion; condicion; actualizacion){
+        BLOQUE DE CODIGO
+    }
+    ==============================
+    
+    INICIALIZACION:
+        Aquí nace la variable que gobernará la repetición y el conteo.
+        
+        ->Define el estado inicial del ciclo.
+        ->Se ejecuta una sola vez.
+        ->Marca el punto de partida del recorrido.
+    
+    CONDICION:
+        Determina si el ciclo debe continuar o detenerse.
+        
+        ->Es la puerta lógica.
+        ->Se evalúa antes de cada iteración.
+        ->Si es verdadera → el bloque se ejecuta.
+        ->Si es falsa → el ciclo termina.
+        
+    ACTUALIZACION:
+        Modifica el estado de la variable de control después de cada iteración.
+        
+        ->Permite el avance del ciclo.
+        ->Evita el estancamiento.
+        ->Garantiza que la condición eventualmente cambie.
+        
+    CON UN BUEN EJEMPLO VA A QUEDAR MAS CLARO.*/
+    
+    //Ejemplo de uso de la estructura FOR 
+    
+    //Digamos que queremos imprimir los numeros del 0 al 20 
+    //a fuerza bruta podriamos hacer...
+    
+    cout<<"1"<<endl;
+    cout<<"2"<<endl;
+    //... y asi sucesivamente
+    //lo cual no es ilegal pero... no es lo mejor en muchos casos
+    
+    //Nos apoyamos de una estructura for
+    cout<<"inicio de la estructura for"<<endl;
+    
+    for (int i=0; i!= 10 + 1;i++) { //iniciamos en 0, repetirmos 10 veces efectivas
+    //+1 no efectiva e incrmentamos nuestro contador en 1 cada vez
+        
+        cout<<i<<endl;//imprimimos los valores de i que es nuestro contador
+    }
+    
+    cout<<"fin del ciclo For"<<endl;
+    
+    /*El ciclo for es ideal cuando el número de repeticiones puede determinarse
+    antes de comenzar la ejecución.
+    
+    Es una estructura organizada que encapsula completamente el control del ciclo 
+    en una sola línea.*/
+    
+    
+    return 0;
+}
+
+
+//=================== EXPLICACION RELEVANTE ===================00
+/*
+====================== ESTRUCTURAS ITERATIVAS A BAJO NIVEL ======================
+
+IMPORTANTE:
+La CPU NO entiende while, for o do-while.
+Esas son estructuras de alto nivel que el compilador traduce.
+
+La máquina solo entiende instrucciones simples como:
+- Comparar valores
+- Saltar a otra parte del código
+- Ejecutar instrucciones en orden
+
+En bajo nivel, TODO ciclo se convierte básicamente en:
+    1) Una comparación
+    2) Un salto condicional
+
+Nada más.
+
+===============================================================================
+1) ¿Cómo se traduce un WHILE internamente?
+
+Estructura de alto nivel:
+
+while (condicion) {
+    bloque;
+}
+
+Conceptualmente en bajo nivel se convierte en algo como:
+
+INICIO:
+    comparar condicion
+    si es falsa → saltar a FIN
+    ejecutar bloque
+    saltar a INICIO
+FIN:
+
+La clave es el salto hacia arriba.
+Si la condición es verdadera, el flujo regresa al inicio.
+Si es falsa, el flujo continúa después del ciclo.
+
+===============================================================================
+2) ¿Cómo se traduce un DO-WHILE internamente?
+
+Estructura de alto nivel:
+
+do {
+    bloque;
+} while (condicion);
+
+Conceptualmente en bajo nivel:
+
+INICIO:
+    ejecutar bloque
+    comparar condicion
+    si es verdadera → saltar a INICIO
+FIN:
+
+Diferencia importante:
+El bloque se ejecuta primero.
+Por eso siempre se ejecuta al menos una vez.
+
+===============================================================================
+3) ¿Cómo se traduce un FOR internamente?
+
+Estructura de alto nivel:
+
+for (inicio; condicion; actualizacion) {
+    bloque;
+}
+
+Conceptualmente en bajo nivel:
+
+inicio
+
+INICIO:
+    comparar condicion
+    si es falsa → ir a FIN
+    ejecutar bloque
+    actualizacion
+    saltar a INICIO
+FIN:
+
+Conclusión:
+El FOR no es especial.
+Es básicamente un WHILE organizado.
+
+===============================================================================
+4) ¿Qué es realmente un ciclo?
+
+Un ciclo es un bloque de código que se repite porque existe
+una instrucción que hace que el flujo vuelva hacia arriba.
+
+Sin el salto hacia atrás, no hay repetición.
+
+===============================================================================
+5) ¿Qué es un bucle infinito a bajo nivel?
+
+Es cuando el salto hacia arriba nunca deja de ejecutarse.
+
+Ejemplo conceptual:
+
+INICIO:
+    ejecutar algo
+    saltar a INICIO
+
+Aquí no existe una condición que rompa el salto.
+La CPU repetirá para siempre.
+
+===============================================================================
+RESUMEN GENERAL:
+
+- while      → comparación al inicio + salto hacia arriba
+- do-while   → ejecución primero + comparación al final
+- for        → while estructurado con inicio y actualización integrados
+- ciclo      → salto hacia atrás controlado por una condición
+- infinito   → salto sin condición de salida
+
+Las estructuras iterativas no repiten mágicamente.
+El procesador simplemente compara y decide si debe saltar.
+
+Eso es todo lo que ocurre a bajo nivel.
+===============================================================================
+*/
+
+
+//Julian Santuario Clase 4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
